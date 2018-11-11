@@ -1,0 +1,16 @@
+---
+version: '3'
+services:
+  dask-operator:
+    build: .
+    restart: always
+    command: "sleep 100000"
+    network_mode: host
+    volumes:
+      - "./secrets:/var/run/secrets/kubernetes.io/serviceaccount"
+      - "./dask-operator:/dask-operator"
+    environment:
+      - KUBERNETES_SERVICE_PORT=8443
+      - KUBERNETES_SERVICE_PORT_HTTPS=8443
+      - KUBERNETES_PORT=tcp://192.168.39.37:8443
+      - KUBERNETES_SERVICE_HOST=192.168.39.37
